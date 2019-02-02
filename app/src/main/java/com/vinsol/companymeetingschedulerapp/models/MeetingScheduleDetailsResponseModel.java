@@ -3,7 +3,7 @@ package com.vinsol.companymeetingschedulerapp.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MeetingSchedulDetailsResponseModel implements Serializable {
+public class MeetingScheduleDetailsResponseModel implements Serializable {
 
     private String start_time;
     private String end_time;
