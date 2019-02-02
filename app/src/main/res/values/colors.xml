@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!--style guide please do not define any color here define in temp section -->
+    <color name="fontPrimary100">#FF0c1e37</color>
+    <color name="fontPrimary90">#E60c1e37</color>
+    <color name="fontPrimary80">#CC0c1e37</color>
+    <color name="fontPrimary70">#B30c1e37</color>
+    <color name="fontPrimary60">#990c1e37</color>
+    <color name="fontPrimary50">#800c1e37</color>
+    <color name="fontPrimary40">#660c1e37</color>
+    <color name="fontPrimary30">#4D0c1e37</color>
+    <color name="fontPrimary25">#400c1e37</color>
+    <color name="fontPrimary20">#330c1e37</color>
+    <color name="fontPrimary10">#1A0c1e37</color>
+</resources>
