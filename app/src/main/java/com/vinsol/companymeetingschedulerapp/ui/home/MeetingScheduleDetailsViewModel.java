@@ -1,4 +1,4 @@
-package com.vinsol.companymeetingschedulerapp.ui;
+package com.vinsol.companymeetingschedulerapp.ui.home;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
