@@ -56,6 +56,7 @@ public class ScheduleAMeetingActivity extends AppCompatActivity implements View.
         mTvEndTime.setOnClickListener(this);
         findViewById(R.id.bt_submit).setOnClickListener(this);
         findViewById(R.id.iv_back).setOnClickListener(this);
+        findViewById(R.id.tv_back).setOnClickListener(this);
 
         myCalendar = Calendar.getInstance();
     }
@@ -120,6 +121,7 @@ public class ScheduleAMeetingActivity extends AppCompatActivity implements View.
             }
             break;
 
+            case R.id.tv_back:
             case R.id.iv_back:
                 finish();
                 break;

@@ -45,6 +45,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.bt_schedule).setOnClickListener(this);
         findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.iv_forward).setOnClickListener(this);
+        findViewById(R.id.tv_forward).setOnClickListener(this);
+        findViewById(R.id.tv_prev).setOnClickListener(this);
 
         mViewModel = ViewModelProviders.of(this).get(MeetingScheduleDetailsViewModel.class);
 
@@ -56,17 +58,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new MeetingSchedularListAdapter(new ArrayList<MeetingScheduleDetailsResponseModel>());
         mRvMeetingDetailsList.setAdapter(mAdapter);
 
-        mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
-            @Override
-            public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingDetailsList) {
-                if (meetingDetailsList != null) {
-                    Collections.sort(meetingDetailsList, MeetingScheduleDetailsResponseModel.COMPARE_BY_DATE);
-                    mAdapter.setMeetingScheduleDetailsList((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
-                    mAdapter.notifyDataSetChanged();
-
-                }
-            }
-        });
+        mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this,this);
     }
 
     @Override
@@ -80,36 +72,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
 
+            case R.id.tv_prev:
             case R.id.iv_back:
                 mCalendar.add(Calendar.DAY_OF_MONTH, -1);
                 mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen, mCalendar));
-                mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
-                    @Override
-                    public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingDetailsList) {
-                        if (meetingDetailsList != null) {
-                            Collections.sort(meetingDetailsList, MeetingScheduleDetailsResponseModel.COMPARE_BY_DATE);
-                            mAdapter.setMeetingScheduleDetailsList((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
-                            mAdapter.notifyDataSetChanged();
-
-                        }
-                    }
-                });
+                mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this, this);
                 break;
 
+            case R.id.tv_forward:
             case R.id.iv_forward:
                 mCalendar.add(Calendar.DAY_OF_MONTH, 1);
                 mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen, mCalendar));
-                mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
-                    @Override
-                    public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingDetailsList) {
-                        if (meetingDetailsList != null) {
-                            Collections.sort(meetingDetailsList, MeetingScheduleDetailsResponseModel.COMPARE_BY_DATE);
-                            mAdapter.setMeetingScheduleDetailsList((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
-                            mAdapter.notifyDataSetChanged();
-
-                        }
-                    }
-                });
+                mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this, this);
                 break;
         }
     }
@@ -119,8 +93,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         if (meetingDetailsList != null) {
             Collections.sort(meetingDetailsList, MeetingScheduleDetailsResponseModel.COMPARE_BY_DATE);
-            MeetingSchedularListAdapter adapter = new MeetingSchedularListAdapter((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
-            mRvMeetingDetailsList.setAdapter(adapter);
+            mAdapter.setMeetingScheduleDetailsList((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

@@ -51,6 +51,7 @@
             android:contentDescription="@string/app_name" />
 
         <TextView
+            android:id="@+id/tv_prev"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/iv_back"
@@ -80,6 +81,7 @@
             android:contentDescription="@string/app_name" />
 
         <TextView
+            android:id="@+id/tv_forward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/iv_forward"
