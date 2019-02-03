@@ -3,9 +3,9 @@ package com.vinsol.companymeetingschedulerapp.utills;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 
+import com.vinsol.companymeetingschedulerapp.BaseActivity;
 import com.vinsol.companymeetingschedulerapp.R;
 
 public class OtherUtils {
@@ -24,7 +24,7 @@ public class OtherUtils {
         builder.setPositiveButton(positiveButtonText, null);
         builder.setMessage(Html.fromHtml(message));
         builder.setTitle(context.getResources().getString(R.string.app_name));
-        if (!((AppCompatActivity) context).isDestroyed() && !((AppCompatActivity) context).isFinishing()) {
+        if (!((BaseActivity) context).isDestroyed() && !((BaseActivity) context).isFinishing()) {
             try {
                 builder.show();
             } catch (Exception e) {

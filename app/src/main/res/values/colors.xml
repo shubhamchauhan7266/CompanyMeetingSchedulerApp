@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#15A186</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#dadada</color>
+    <color name="colorAccent">#15A186</color>
 
     <!--style guide please do not define any color here define in temp section -->
     <color name="fontPrimary100">#FF0c1e37</color>
@@ -21,4 +21,5 @@
     <color name="white">#FFFFFF</color>
     <color name="light_grey">#60dadada</color>
     <color name="background_grey">#60EEEEEE</color>
+    <color name="transparent">#00000000</color>
 </resources>

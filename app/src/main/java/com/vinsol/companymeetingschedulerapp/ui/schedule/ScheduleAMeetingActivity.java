@@ -6,24 +6,25 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.vinsol.companymeetingschedulerapp.BaseActivity;
 import com.vinsol.companymeetingschedulerapp.R;
 import com.vinsol.companymeetingschedulerapp.constants.Constants;
 import com.vinsol.companymeetingschedulerapp.models.MeetingScheduleDetailsResponseModel;
 import com.vinsol.companymeetingschedulerapp.ui.home.MeetingScheduleDetailsViewModel;
+import com.vinsol.companymeetingschedulerapp.utills.ConnectivityUtils;
 import com.vinsol.companymeetingschedulerapp.utills.DateUtills;
 import com.vinsol.companymeetingschedulerapp.utills.OtherUtils;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class ScheduleAMeetingActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScheduleAMeetingActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView mTvDate;
     private TextView mTvStartTime;
@@ -67,11 +68,18 @@ public class ScheduleAMeetingActivity extends AppCompatActivity implements View.
         switch (view.getId()) {
             case R.id.bt_submit:
 
+                if (!ConnectivityUtils.isNetworkEnabled(this)) {
+                    OtherUtils.showAlertDialog(getString(R.string.no_internet_connection), getString(R.string.ok), this);
+                    return;
+                }
+
                 if (isValidAllData()) {
 
+                    showProgressDialog();
                     mViewModel.getMeetingListDetails(mTvDate.getText().toString()).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
                         @Override
                         public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingScheduleDetailsList) {
+                            removeProgressDialog();
                             scheduleAMeeting(meetingScheduleDetailsList);
                         }
                     });
