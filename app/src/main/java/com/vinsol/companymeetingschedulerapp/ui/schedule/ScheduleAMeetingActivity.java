@@ -147,11 +147,35 @@ public class ScheduleAMeetingActivity extends AppCompatActivity implements View.
      */
     private void scheduleAMeeting(List<MeetingScheduleDetailsResponseModel> meetingScheduleDetailsList) {
 
-        // TODO need to discuss with Shubham
+        boolean isSlotAvailable = true;
+        for(MeetingScheduleDetailsResponseModel meetingDetails: meetingScheduleDetailsList){
+            if(isSlotNotAvailable(meetingDetails)){
+                isSlotAvailable = false;
+                OtherUtils.showAlertDialog(getString(R.string.slot_not_available), getString(R.string.ok), this);
+                break;
+            }
+        }
 
+        if(isSlotAvailable){
+            OtherUtils.showAlertDialog(getString(R.string.slot_available), getString(R.string.ok), this);
+        }
+    }
 
-        OtherUtils.showAlertDialog(getString(R.string.slot_available), getString(R.string.ok), this);
-//        OtherUtils.showAlertDialog(getString(R.string.slot_not_available), getString(R.string.ok), this);
+    /**
+     * Method is used to check slot is available or not.
+     *
+     * @param meetingDetails meetingDetails
+     * @return true if slot is not available otherwise false.
+     */
+    private boolean isSlotNotAvailable(MeetingScheduleDetailsResponseModel meetingDetails) {
+        return (DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM),
+                DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM))>0
+                && DateUtills.compareTime(DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM),
+                DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM))>0)
+                || (DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM),
+                DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM))>0
+                && DateUtills.compareTime(DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM),
+                DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM))>0);
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

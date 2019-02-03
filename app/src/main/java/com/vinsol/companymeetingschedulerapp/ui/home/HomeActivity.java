@@ -22,6 +22,7 @@ import com.vinsol.companymeetingschedulerapp.utills.DateUtills;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, Observer<List<MeetingScheduleDetailsResponseModel>> {
@@ -83,7 +84,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingDetailsList) {
-        MeetingSchedularListAdapter adapter = new MeetingSchedularListAdapter((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
-        mRvMeetingDetailsList.setAdapter(adapter);
+
+        if (meetingDetailsList != null) {
+            Collections.sort(meetingDetailsList, MeetingScheduleDetailsResponseModel.COMPARE_BY_DATE);
+            MeetingSchedularListAdapter adapter = new MeetingSchedularListAdapter((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
+            mRvMeetingDetailsList.setAdapter(adapter);
+        }
     }
 }
