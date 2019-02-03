@@ -1,5 +1,6 @@
 package com.vinsol.companymeetingschedulerapp.ui.home;
 
+import android.app.DatePickerDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -10,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.vinsol.companymeetingschedulerapp.BaseActivity;
@@ -49,6 +51,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         findViewById(R.id.iv_forward).setOnClickListener(this);
         findViewById(R.id.tv_forward).setOnClickListener(this);
         findViewById(R.id.tv_prev).setOnClickListener(this);
+        mTvDate.setOnClickListener(this);
 
         mViewModel = ViewModelProviders.of(this).get(MeetingScheduleDetailsViewModel.class);
 
@@ -60,7 +63,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mAdapter = new MeetingSchedularListAdapter(new ArrayList<MeetingScheduleDetailsResponseModel>());
         mRvMeetingDetailsList.setAdapter(mAdapter);
 
-        mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this,this);
+        mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this, this);
     }
 
     @Override
@@ -68,9 +71,23 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         switch (view.getId()) {
 
+            case R.id.tv_date:
+
+                if (!ConnectivityUtils.isNetworkEnabled(this)) {
+                    OtherUtils.showAlertDialog(getString(R.string.no_internet_connection), getString(R.string.ok), this);
+                    return;
+                }
+                DatePickerDialog datePickerDialog = new DatePickerDialog(this, date, mCalendar
+                        .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
+                        mCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
+                break;
+
             case R.id.bt_schedule:
 
                 Intent intent = new Intent(HomeActivity.this, ScheduleAMeetingActivity.class);
+                intent.putExtra(Constants.SCHEDULE_DATE, DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar));
                 startActivity(intent);
                 break;
 
@@ -101,6 +118,21 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 break;
         }
     }
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+
+            mCalendar.set(Calendar.YEAR, year);
+            mCalendar.set(Calendar.MONTH, monthOfYear);
+            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen, mCalendar));
+            mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar));
+        }
+
+    };
 
     @Override
     public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingDetailsList) {

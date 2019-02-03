@@ -32,12 +32,16 @@ public class ScheduleAMeetingActivity extends BaseActivity implements View.OnCli
     private EditText mEtDescription;
     private Calendar myCalendar;
     private MeetingScheduleDetailsViewModel mViewModel;
+    private String mScheduleDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_ameeting);
 
+        if(getIntent()!=null){
+            mScheduleDate = getIntent().getStringExtra(Constants.SCHEDULE_DATE);
+        }
         initView();
 
         mViewModel = ViewModelProviders.of(this).get(MeetingScheduleDetailsViewModel.class);
@@ -60,6 +64,7 @@ public class ScheduleAMeetingActivity extends BaseActivity implements View.OnCli
         findViewById(R.id.tv_back).setOnClickListener(this);
 
         myCalendar = Calendar.getInstance();
+        mTvDate.setText(mScheduleDate);
     }
 
     @Override

@@ -13,4 +13,6 @@ public interface Constants {
     String HH_MM  = "HH:mm";
     String DD_MM_YYYY  = "dd/MM/yyyy";
     String DD_MM_YYYY_hypen  = "dd-MM-yyyy";
+
+    String SCHEDULE_DATE = "schedule_date";
 }
