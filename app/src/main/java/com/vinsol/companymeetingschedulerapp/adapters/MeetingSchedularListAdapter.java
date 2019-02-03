@@ -21,6 +21,10 @@ public class MeetingSchedularListAdapter extends RecyclerView.Adapter<MeetingSch
         mMeetingScheduleDetailsList = meetingScheduleDetailsList;
     }
 
+    public void setMeetingScheduleDetailsList(ArrayList<MeetingScheduleDetailsResponseModel> mMeetingScheduleDetailsList) {
+        this.mMeetingScheduleDetailsList = mMeetingScheduleDetailsList;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {

@@ -24,9 +24,9 @@ public class MeetingScheduleDetailsViewModel extends ViewModel {
         if (mMeetingDetailsList == null) {
             mMeetingDetailsList = new MutableLiveData<>();
             //we will load it asynchronously from server in this method
-            loadMeetingDetails(date);
         }
 
+        loadMeetingDetails(date);
         //finally we will return the list
         return mMeetingDetailsList;
     }

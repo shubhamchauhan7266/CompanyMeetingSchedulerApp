@@ -168,11 +168,17 @@ public class ScheduleAMeetingActivity extends AppCompatActivity implements View.
      * @return true if slot is not available otherwise false.
      */
     private boolean isSlotNotAvailable(MeetingScheduleDetailsResponseModel meetingDetails) {
-        return (DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM),
-                DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM))>0
-                && DateUtills.compareTime(DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM),
-                DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM))>0)
-                || (DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM),
+        return (DateUtills.compareTime(DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM),
+                DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM))>0
+                && DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM),
+                DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM))>0)
+
+                || (DateUtills.compareTime(DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM),
+                DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM))>0
+                && DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM),
+                DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM))>0)
+
+                || (DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM),
                 DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM))>0
                 && DateUtills.compareTime(DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM),
                 DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM))>0);

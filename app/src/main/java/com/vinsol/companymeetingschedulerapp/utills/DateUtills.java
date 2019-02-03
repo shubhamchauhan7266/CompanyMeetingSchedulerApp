@@ -31,21 +31,21 @@ public class DateUtills {
      * Method to compare two dates on time bases
      * @param date1 date one
      * @param date2 date two
-     * @return 0 if both equal , -1 if date one time is lesser and 1 if date two time is lesser
+     * @return 0 if both equal , 1 if date one time is lesser and -1 if date two time is lesser
      */
     public static int compareTime(Date date1,Date date2){
         Calendar calTemp=Calendar.getInstance();
         Calendar cal1=Calendar.getInstance();
         Calendar cal2=Calendar.getInstance();
         calTemp.setTime(date1);
-        cal1.set(calTemp.get(Calendar.YEAR),calTemp.get(Calendar.MONTH),calTemp.get(Calendar.DAY_OF_MONTH),calTemp.get(Calendar.HOUR),calTemp.get(Calendar.MINUTE));
+        cal1.set(calTemp.get(Calendar.YEAR),calTemp.get(Calendar.MONTH),calTemp.get(Calendar.DAY_OF_MONTH),calTemp.get(Calendar.HOUR_OF_DAY),calTemp.get(Calendar.MINUTE));
         calTemp.setTime(date2);
-        cal2.set(calTemp.get(Calendar.YEAR),calTemp.get(Calendar.MONTH),calTemp.get(Calendar.DAY_OF_MONTH),calTemp.get(Calendar.HOUR),calTemp.get(Calendar.MINUTE));
+        cal2.set(calTemp.get(Calendar.YEAR),calTemp.get(Calendar.MONTH),calTemp.get(Calendar.DAY_OF_MONTH),calTemp.get(Calendar.HOUR_OF_DAY),calTemp.get(Calendar.MINUTE));
 
         if(cal1.before(cal2)){
-            return -1;
-        }else if(cal2.before(cal1)){
             return 1;
+        }else if(cal2.before(cal1)){
+            return -1;
         }else{
             return 0;
         }

@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private MeetingScheduleDetailsViewModel mViewModel;
     private LiveData<List<MeetingScheduleDetailsResponseModel>> mMeetingDetailsListObserver;
     private TextView mTvDate;
+    private MeetingSchedularListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +53,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         mRvMeetingDetailsList.setLayoutManager(new LinearLayoutManager(this));
         mRvMeetingDetailsList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mAdapter = new MeetingSchedularListAdapter(new ArrayList<MeetingScheduleDetailsResponseModel>());
+        mRvMeetingDetailsList.setAdapter(mAdapter);
 
-        mMeetingDetailsListObserver = mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar));
-        mMeetingDetailsListObserver.observe(HomeActivity.this, this);
+        mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
+            @Override
+            public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingDetailsList) {
+                if (meetingDetailsList != null) {
+                    Collections.sort(meetingDetailsList, MeetingScheduleDetailsResponseModel.COMPARE_BY_DATE);
+                    mAdapter.setMeetingScheduleDetailsList((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
+                    mAdapter.notifyDataSetChanged();
+
+                }
+            }
+        });
     }
 
     @Override
@@ -71,13 +83,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.iv_back:
                 mCalendar.add(Calendar.DAY_OF_MONTH, -1);
                 mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen, mCalendar));
-                mMeetingDetailsListObserver = mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar));
+                mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
+                    @Override
+                    public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingDetailsList) {
+                        if (meetingDetailsList != null) {
+                            Collections.sort(meetingDetailsList, MeetingScheduleDetailsResponseModel.COMPARE_BY_DATE);
+                            mAdapter.setMeetingScheduleDetailsList((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
+                            mAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                });
                 break;
 
             case R.id.iv_forward:
                 mCalendar.add(Calendar.DAY_OF_MONTH, 1);
                 mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen, mCalendar));
-                mMeetingDetailsListObserver = mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar));
+                mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar)).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
+                    @Override
+                    public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingDetailsList) {
+                        if (meetingDetailsList != null) {
+                            Collections.sort(meetingDetailsList, MeetingScheduleDetailsResponseModel.COMPARE_BY_DATE);
+                            mAdapter.setMeetingScheduleDetailsList((ArrayList<MeetingScheduleDetailsResponseModel>) meetingDetailsList);
+                            mAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                });
                 break;
         }
     }
