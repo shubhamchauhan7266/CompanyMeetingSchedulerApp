@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -45,7 +47,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mViewModel = ViewModelProviders.of(this).get(MeetingScheduleDetailsViewModel.class);
 
         mCalendar = Calendar.getInstance();
-        mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen,mCalendar));
+        mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen, mCalendar));
+
+        mRvMeetingDetailsList.setLayoutManager(new LinearLayoutManager(this));
+        mRvMeetingDetailsList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         mMeetingDetailsListObserver = mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar));
         mMeetingDetailsListObserver.observe(HomeActivity.this, this);
@@ -64,13 +69,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.iv_back:
                 mCalendar.add(Calendar.DAY_OF_MONTH, -1);
-                mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen,mCalendar));
+                mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen, mCalendar));
                 mMeetingDetailsListObserver = mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar));
                 break;
 
             case R.id.iv_forward:
                 mCalendar.add(Calendar.DAY_OF_MONTH, 1);
-                mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen,mCalendar));
+                mTvDate.setText(DateUtills.parseDate(Constants.DD_MM_YYYY_hypen, mCalendar));
                 mMeetingDetailsListObserver = mViewModel.getMeetingListDetails(DateUtills.parseDate(Constants.DD_MM_YYYY, mCalendar));
                 break;
         }

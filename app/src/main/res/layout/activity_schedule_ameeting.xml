@@ -10,12 +10,16 @@
         android:id="@+id/tv_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/background_grey_border_with_grey_bg"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_10sdp"
         android:text="@string/meeting_date"
         android:textColor="@color/fontPrimary50"
-        android:textStyle="bold"
         android:textSize="@dimen/_12sdp"
-
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
@@ -24,12 +28,16 @@
         android:id="@+id/tv_start_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/background_grey_border_with_grey_bg"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_10sdp"
         android:text="@string/start_time"
         android:textColor="@color/fontPrimary50"
-        android:textStyle="bold"
         android:textSize="@dimen/_12sdp"
-
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_date" />
@@ -38,11 +46,16 @@
         android:id="@+id/tv_end_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/background_grey_border_with_grey_bg"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_10sdp"
         android:text="@string/end_time"
         android:textColor="@color/fontPrimary50"
-        android:textStyle="bold"
         android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_start_time" />
@@ -51,9 +64,9 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -62,18 +75,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/back_arrow"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/back_arrow" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_toEndOf="@id/iv_back"
             android:text="@string/back"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="@dimen/_13sdp"
-            android:layout_centerVertical="true"/>
+            android:textSize="@dimen/_13sdp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,8 +95,8 @@
             android:text="@string/schedule_a_meeting"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="@dimen/_15sdp"/>
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <android.support.constraint.Guideline
@@ -92,7 +105,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_begin="@dimen/_25sdp"
+        app:layout_constraintGuide_begin="@dimen/_20sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,7 +116,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_end="@dimen/_25sdp"
+        app:layout_constraintGuide_end="@dimen/_20sdp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -111,10 +124,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_40sdp"
+        android:background="@drawable/button_background"
         android:text="@string/submit"
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
-        android:background="@color/button_color"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/et_description" />
@@ -123,17 +136,18 @@
         android:id="@+id/et_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/background_grey_border_with_white_bg"
         android:ems="10"
-        android:minLines="3"
         android:gravity="top"
-        android:textSize="@dimen/_12sdp"
-
-        android:minHeight="@dimen/_100sdp"
-        android:textColorHint="@color/fontPrimary50"
-        android:textColor="@color/fontPrimary80"
         android:hint="@string/description"
         android:inputType="textPersonName"
+        android:minHeight="@dimen/_80sdp"
+        android:minLines="3"
+        android:padding="@dimen/_5sdp"
+        android:textColor="@color/fontPrimary80"
+        android:textColorHint="@color/fontPrimary50"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_end_time" />

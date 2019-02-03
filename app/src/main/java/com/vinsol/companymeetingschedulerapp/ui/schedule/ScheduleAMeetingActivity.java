@@ -147,7 +147,9 @@ public class ScheduleAMeetingActivity extends AppCompatActivity implements View.
      */
     private void scheduleAMeeting(List<MeetingScheduleDetailsResponseModel> meetingScheduleDetailsList) {
 
-        // TODO need to discuss with shubham
+        // TODO need to discuss with Shubham
+
+
         OtherUtils.showAlertDialog(getString(R.string.slot_available), getString(R.string.ok), this);
 //        OtherUtils.showAlertDialog(getString(R.string.slot_not_available), getString(R.string.ok), this);
     }
