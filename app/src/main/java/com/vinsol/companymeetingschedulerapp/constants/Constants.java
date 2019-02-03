@@ -11,4 +11,5 @@ public interface Constants {
     int NETWORK_TIMEOUT = 60;
 
     String DD_MM_YYYY  = "dd/MM/yyyy";
+    String DD_MM_YYYY_hypen  = "dd-MM-yyyy";
 }
