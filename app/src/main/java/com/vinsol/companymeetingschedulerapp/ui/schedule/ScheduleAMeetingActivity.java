@@ -80,14 +80,21 @@ public class ScheduleAMeetingActivity extends BaseActivity implements View.OnCli
 
                 if (isValidAllData()) {
 
-                    showProgressDialog();
-                    mViewModel.getMeetingListDetails(mTvDate.getText().toString()).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
-                        @Override
-                        public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingScheduleDetailsList) {
-                            removeProgressDialog();
-                            scheduleAMeeting(meetingScheduleDetailsList);
-                        }
-                    });
+                    if(DateUtills.compareTime(DateUtills.getParsedDate(String.valueOf(mTvEndTime.getText().toString()),Constants.HH_MM),
+                            DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM))>0){
+                        OtherUtils.showAlertDialog(getString(R.string.date_validation), getString(R.string.ok), this);
+                    }else {
+
+                        showProgressDialog();
+                        mViewModel.getMeetingListDetails(mTvDate.getText().toString()).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
+                            @Override
+                            public void onChanged(@Nullable List<MeetingScheduleDetailsResponseModel> meetingScheduleDetailsList) {
+                                removeProgressDialog();
+                                scheduleAMeeting(meetingScheduleDetailsList);
+                            }
+                        });
+                    }
+
                 } else {
                     OtherUtils.showAlertDialog(getString(R.string.error_message), getString(R.string.ok), this);
                 }

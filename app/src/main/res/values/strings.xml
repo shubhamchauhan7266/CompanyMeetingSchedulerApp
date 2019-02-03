@@ -8,6 +8,7 @@
     <string name="end_time">End Time</string>
     <string name="ok">OK</string>
     <string name="error_message">All field is not valid</string>
+    <string name="date_validation">End time can not be greater then start time</string>
     <string name="slot_available">Slot available</string>
     <string name="slot_not_available">Slot not available</string>
     <string name="select_time">Select Time</string>
