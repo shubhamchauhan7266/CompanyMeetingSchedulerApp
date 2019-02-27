@@ -39,7 +39,7 @@ public class ScheduleAMeetingActivity extends BaseActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_ameeting);
 
-        if(getIntent()!=null){
+        if (getIntent() != null) {
             mScheduleDate = getIntent().getStringExtra(Constants.SCHEDULE_DATE);
         }
         initView();
@@ -80,10 +80,10 @@ public class ScheduleAMeetingActivity extends BaseActivity implements View.OnCli
 
                 if (isValidAllData()) {
 
-                    if(DateUtills.compareTime(DateUtills.getParsedDate(String.valueOf(mTvEndTime.getText().toString()),Constants.HH_MM),
-                            DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM))>0){
+                    if (DateUtills.compareTime(DateUtills.getParsedDate(String.valueOf(mTvEndTime.getText().toString()), Constants.HH_MM),
+                            DateUtills.getParsedDate(mTvStartTime.getText().toString(), Constants.HH_MM)) > 0) {
                         OtherUtils.showAlertDialog(getString(R.string.date_validation), getString(R.string.ok), this);
-                    }else {
+                    } else {
 
                         showProgressDialog();
                         mViewModel.getMeetingListDetails(mTvDate.getText().toString()).observe(this, new Observer<List<MeetingScheduleDetailsResponseModel>>() {
@@ -170,15 +170,15 @@ public class ScheduleAMeetingActivity extends BaseActivity implements View.OnCli
     private void scheduleAMeeting(List<MeetingScheduleDetailsResponseModel> meetingScheduleDetailsList) {
 
         boolean isSlotAvailable = true;
-        for(MeetingScheduleDetailsResponseModel meetingDetails: meetingScheduleDetailsList){
-            if(isSlotNotAvailable(meetingDetails)){
+        for (MeetingScheduleDetailsResponseModel meetingDetails : meetingScheduleDetailsList) {
+            if (isSlotNotAvailable(meetingDetails)) {
                 isSlotAvailable = false;
                 OtherUtils.showAlertDialog(getString(R.string.slot_not_available), getString(R.string.ok), this);
                 break;
             }
         }
 
-        if(isSlotAvailable){
+        if (isSlotAvailable) {
             OtherUtils.showAlertDialog(getString(R.string.slot_available), getString(R.string.ok), this);
         }
     }
@@ -190,20 +190,27 @@ public class ScheduleAMeetingActivity extends BaseActivity implements View.OnCli
      * @return true if slot is not available otherwise false.
      */
     private boolean isSlotNotAvailable(MeetingScheduleDetailsResponseModel meetingDetails) {
-        return (DateUtills.compareTime(DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM),
-                DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM))>0
-                && DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM),
-                DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM))>0)
 
-                || (DateUtills.compareTime(DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM),
-                DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM))>0
-                && DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM),
-                DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM))>0)
+//        return (DateUtills.compareTime(DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM),
+//                DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM))>=0
+//                && DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM),
+//                DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM))>0)
+//
+//                || (DateUtills.compareTime(DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM),
+//                DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM))>0
+//                && DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM),
+//                DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM))>=0)
+//
+//                || (DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM),
+//                DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM))>=0
+//                && DateUtills.compareTime(DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM),
+//                DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM))>=0);
 
-                || (DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getStart_time(),Constants.HH_MM),
-                DateUtills.getParsedDate(mTvStartTime.getText().toString(),Constants.HH_MM))>0
-                && DateUtills.compareTime(DateUtills.getParsedDate(mTvEndTime.getText().toString(),Constants.HH_MM),
-                DateUtills.getParsedDate(meetingDetails.getEnd_time(),Constants.HH_MM))>0);
+        return (DateUtills.compareTime(DateUtills.getParsedDate(mTvStartTime.getText().toString(), Constants.HH_MM),
+                DateUtills.getParsedDate(meetingDetails.getEnd_time(), Constants.HH_MM)) > 0)
+                &&
+                (DateUtills.compareTime(DateUtills.getParsedDate(meetingDetails.getStart_time(), Constants.HH_MM),
+                        DateUtills.getParsedDate(mTvEndTime.getText().toString(), Constants.HH_MM)) > 0);
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
